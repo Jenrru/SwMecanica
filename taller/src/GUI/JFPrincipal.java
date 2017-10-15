@@ -12,7 +12,9 @@ import javax.swing.JPanel;
 
 
 public class JFPrincipal extends javax.swing.JFrame {
- 
+    Modelo.Conexion cc = new Modelo.Conexion();
+    assets.botonesEstilosos bntStyle = new assets.botonesEstilosos();
+    assets.ParametrosTexto pt = new assets.ParametrosTexto();
     public static String cuentactual;    
     public static String cargo;
     
@@ -20,6 +22,8 @@ public class JFPrincipal extends javax.swing.JFrame {
         initComponents();   
         ((JPanel)getContentPane()).setOpaque(false);       
     }
+    int cajaIni=0;
+    int cajaFin=0;
  
        
        
@@ -64,15 +68,6 @@ public class JFPrincipal extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtMontoFinal = new javax.swing.JTextField();
         JFusuario = new javax.swing.JFrame();
-        btnAdd = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tbUsuario = new javax.swing.JTable();
-        btnSalir = new javax.swing.JButton();
-        btnAct = new javax.swing.JButton();
-        btnPagar = new javax.swing.JButton();
-        btnMod = new javax.swing.JButton();
-        btnDel = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
         JFcliente = new javax.swing.JFrame();
         JFproducto = new javax.swing.JFrame();
         JFproveedor = new javax.swing.JFrame();
@@ -507,114 +502,15 @@ public class JFPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btnAdd.setText("Nuevo");
-        btnStyle.btnAddU(btnAdd,"Nuevo","Crear nuevo usuario");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-
-        pt.seteaTabla(tbUsuario);
-        tbUsuario.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane2.setViewportView(tbUsuario);
-
-        btnSalir.setText("Salir");
-        btnStyle.btnSalir(btnSalir,"Salir","Ventana Principal");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-
-        btnAct.setText("Activar/Desactivar");
-        btnStyle.btnBloquear(btnAct,"Activar","Activar/Desactivar Usuario");
-        btnAct.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActActionPerformed(evt);
-            }
-        });
-
-        btnPagar.setText("Pagar");
-        btnPagar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPagarActionPerformed(evt);
-            }
-        });
-
-        btnMod.setText("Modificar");
-        btnStyle.btnModificar(btnMod,"Modificar","Modificar Usuario");
-        btnMod.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModActionPerformed(evt);
-            }
-        });
-
-        btnDel.setText("Borrar");
-        btnStyle.btnEliminar(btnDel,"Borrar","Borrar Usuario");
-        btnDel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDelActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setText("Usuarios");
-        pt.seteaTitulo(jLabel1);
-
         javax.swing.GroupLayout JFusuarioLayout = new javax.swing.GroupLayout(JFusuario.getContentPane());
         JFusuario.getContentPane().setLayout(JFusuarioLayout);
         JFusuarioLayout.setHorizontalGroup(
             JFusuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JFusuarioLayout.createSequentialGroup()
-                .addGroup(JFusuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JFusuarioLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(JFusuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(JFusuarioLayout.createSequentialGroup()
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnMod, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAct, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                    .addGroup(JFusuarioLayout.createSequentialGroup()
-                        .addGap(159, 159, 159)
-                        .addComponent(jLabel8)))
-                .addGap(12, 12, 12))
+            .addGap(0, 491, Short.MAX_VALUE)
         );
         JFusuarioLayout.setVerticalGroup(
             JFusuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JFusuarioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(JFusuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMod, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAct, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPagar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 355, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout JFclienteLayout = new javax.swing.GroupLayout(JFcliente.getContentPane());
@@ -1339,7 +1235,7 @@ public class JFPrincipal extends javax.swing.JFrame {
 
     private void txtMontoFinalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoFinalKeyTyped
         // TODO add your handling code here:
-        pt.soloNumeros(evt);
+
     }//GEN-LAST:event_txtMontoFinalKeyTyped
 
     private void btnAceptarIniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarIniActionPerformed
@@ -1362,7 +1258,7 @@ public class JFPrincipal extends javax.swing.JFrame {
             txtEsperado.setText("");
             txtEsperado.setEnabled(true);
             
-            BD.Toast.makeText(JFPrincipal.this, "Caja Iniciada correctamente", Toast.Style.SUCCESS).display();
+            assets.Toast.makeText(JFPrincipal.this, "Caja Iniciada correctamente", assets.Toast.Style.SUCCESS).display();
         }else if (montoIni == 0 && txtMontoInicial.isEnabled())
         {                        
             int seleccion = JOptionPane.showOptionDialog(this, "¿Esta seguro que desea iniciar sin Saldo?","Caja sin saldo",JOptionPane.YES_NO_OPTION,
@@ -1382,7 +1278,7 @@ public class JFPrincipal extends javax.swing.JFrame {
                         txtEsperado.setEnabled(true);
                         txtMontoInicial.setText("0");
                         this.JDcaja.dispose();
-                        BD.Toast.makeText(JFPrincipal.this, "Caja Iniciada correctamente", Toast.Style.SUCCESS).display();
+                        assets.Toast.makeText(JFPrincipal.this, "Caja Iniciada correctamente", assets.Toast.Style.SUCCESS).display();
                         break;
                     case 1:
                         JDcaja.setVisible(true);
@@ -1392,7 +1288,7 @@ public class JFPrincipal extends javax.swing.JFrame {
         }else if (!txtMontoInicial.isEnabled())
         {
             JDcaja.dispose();
-            BD.Toast.makeText(JFPrincipal.this, "La opertura se realizo con anterioridad", Toast.Style.NORMAL).display();
+            assets.Toast.makeText(JFPrincipal.this, "La opertura se realizo con anterioridad", assets.Toast.Style.NORMAL).display();
         }
     }//GEN-LAST:event_btnAceptarIniActionPerformed
 
@@ -1445,10 +1341,10 @@ public class JFPrincipal extends javax.swing.JFrame {
                    + " VALUES ('"+now+"','"+cuentactual+"',"+cajaIni+","+ventas+","+ingresos+","+egresos+","+Integer.parseInt(txtMontoFinal.getText())+","+necesita+")";
             this.JDcajaCierre.dispose();
             
-            BD.Toast.makeText(JFPrincipal.this, "Caja Cuadrada correctamente", Toast.Style.SUCCESS).display();
+            assets.Toast.makeText(JFPrincipal.this, "Caja Cuadrada correctamente", assets.Toast.Style.SUCCESS).display();
             
             System.out.println("IF 1  "+ necesita);
-            cc.Insert(sql);
+           // cc.Insert(sql);
             txtMontoFinal.setText("");
             txtEsperado.setText("");
             txtMontoFinal.enable(false);
@@ -1471,7 +1367,7 @@ public class JFPrincipal extends javax.swing.JFrame {
                         String sql = "INSERT INTO tb_caja (fecha, usuario, cajaini, ventas, ingresos, egresos, cajafin, diferencia)"
                         + " VALUES ('"+now+"','"+cuentactual+"',"+cajaIni+","+ventas+","+ingresos+","+egresos+","+Integer.parseInt(txtMontoFinal.getText())+","+necesita+")";cc.Insert(sql);
                         this.JDcajaCierre.dispose();
-                        BD.Toast.makeText(JFPrincipal.this, "Realizado!", Toast.Style.SUCCESS).display();
+                        assets.Toast.makeText(JFPrincipal.this, "Realizado!", assets.Toast.Style.SUCCESS).display();
                         txtMontoFinal.setText("");
                         txtEsperado.setText("");
                         txtMontoFinal.enable(false);
@@ -1500,7 +1396,7 @@ public class JFPrincipal extends javax.swing.JFrame {
                         String sql = "INSERT INTO tb_caja (fecha, usuario, cajaini, ventas, ingresos, egresos, cajafin, diferencia)"
                         + " VALUES ('"+now+"','"+cuentactual+"',"+cajaIni+","+ventas+","+ingresos+","+egresos+","+Integer.parseInt(txtMontoFinal.getText())+","+necesita+")";cc.Insert(sql);
                         this.JDcajaCierre.dispose();
-                        BD.Toast.makeText(JFPrincipal.this, "Realizado!", Toast.Style.SUCCESS).display();
+                        assets.Toast.makeText(JFPrincipal.this, "Realizado!", assets.Toast.Style.SUCCESS).display();
                         txtMontoFinal.setText("");
                         txtEsperado.setText("");
                         txtMontoFinal.enable(false);
@@ -1522,17 +1418,11 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirIniActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-        // TODO add your handling code here:        
-        ce.setVisible(true);
-        ce.toFront();
-        ce.setLocationRelativeTo(null);
+                
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        // TODO add your handling code here:
-        ci.setVisible(true);
-        ci.toFront();
-        ci.setLocationRelativeTo(null);
+      
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
@@ -1549,64 +1439,64 @@ public class JFPrincipal extends javax.swing.JFrame {
 
     private void JDcajaCierreWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_JDcajaCierreWindowActivated
         // TODO add your handling code here:
-        System.out.println("===============JDcajaCierreWindowOpened=================");
-        Date now = new Date(System.currentTimeMillis());        
-        int caja = 0;  
-        int ingr = 0;
-        int egr = 0;
-        try 
-        {
-            String ingreso = "SELECT monto FROM tb_cajaingreso "
-                + "WHERE fecha='"+now+"'";
-            PreparedStatement prs = cc.conectar().prepareStatement(ingreso);
-            ResultSet ress = prs.executeQuery();
-            System.out.println("WHILE INI");
-            while (ress.next())
-            {
-                int monto = Integer.parseInt(ress.getString(1));
-                ingr = ingr + monto;
-                System.out.println("EN WHILE 2 INGRESOS = "+ingr);
-            }
-            System.out.println("TRYCATCH para: calcular la caja final");
-            String sql = "SELECT totalventa FROM tb_venta "
-                + "WHERE fechaventa='"+now+"' AND nulo="+0+"";
-            PreparedStatement st = cc.conectar().prepareStatement(sql);
-            ResultSet rs = st.executeQuery(); 
-            System.out.println("WHILE INI");
-            while (rs.next())
-            {                
-                int monto = Integer.parseInt(rs.getString(1));
-                caja = caja + monto;   
-                System.out.println("EN WHILE 1, CAJA = "+caja);
-            }
-            System.out.println("TRY?");
-            String egreso = "SELECT monto FROM tb_cajaegreso "
-                + "WHERE fecha='"+now+"'";
-            System.out.println("String setiado");
-            PreparedStatement pres = cc.conectar().prepareStatement(egreso);
-            System.out.println("prepared statement");
-            ResultSet res = pres.executeQuery();
-            System.out.println("PRE while");
-            while (res.next())
-            {
-                System.out.println("POST WHILE");
-                int monto = Integer.parseInt(res.getString(1));
-                egr = egr + monto;
-                System.out.println("egreso "+egr);
-            }  
-                
-        } catch (Exception e)
-        {
-
-        }
-            caja = (caja+cajaIni+ingr)-egr;
-            System.out.println("CAJA FIN"+caja);
-            System.out.println("INGRESOS FIN"+ingr);
-            System.out.println("EGRESOS FIN"+egr);
-            System.out.println("CAJA INI" +cajaIni);            
-            txtEsperado.setText(Integer.toString(caja)); 
-            cajaFin= caja;
-                                             
+//        System.out.println("===============JDcajaCierreWindowOpened=================");
+//        Date now = new Date(System.currentTimeMillis());        
+//        int caja = 0;  
+//        int ingr = 0;
+//        int egr = 0;
+//        try 
+//        {
+//            String ingreso = "SELECT monto FROM tb_cajaingreso "
+//                + "WHERE fecha='"+now+"'";
+//            PreparedStatement prs = cc.conectar().prepareStatement(ingreso);
+//            ResultSet ress = prs.executeQuery();
+//            System.out.println("WHILE INI");
+//            while (ress.next())
+//            {
+//                int monto = Integer.parseInt(ress.getString(1));
+//                ingr = ingr + monto;
+//                System.out.println("EN WHILE 2 INGRESOS = "+ingr);
+//            }
+//            System.out.println("TRYCATCH para: calcular la caja final");
+//            String sql = "SELECT totalventa FROM tb_venta "
+//                + "WHERE fechaventa='"+now+"' AND nulo="+0+"";
+//            PreparedStatement st = cc.conectar().prepareStatement(sql);
+//            ResultSet rs = st.executeQuery(); 
+//            System.out.println("WHILE INI");
+//            while (rs.next())
+//            {                
+//                int monto = Integer.parseInt(rs.getString(1));
+//                caja = caja + monto;   
+//                System.out.println("EN WHILE 1, CAJA = "+caja);
+//            }
+//            System.out.println("TRY?");
+//            String egreso = "SELECT monto FROM tb_cajaegreso "
+//                + "WHERE fecha='"+now+"'";
+//            System.out.println("String setiado");
+//            PreparedStatement pres = cc.conectar().prepareStatement(egreso);
+//            System.out.println("prepared statement");
+//            ResultSet res = pres.executeQuery();
+//            System.out.println("PRE while");
+//            while (res.next())
+//            {
+//                System.out.println("POST WHILE");
+//                int monto = Integer.parseInt(res.getString(1));
+//                egr = egr + monto;
+//                System.out.println("egreso "+egr);
+//            }  
+//                
+//        } catch (Exception e)
+//        {
+//
+//        }
+//            caja = (caja+cajaIni+ingr)-egr;
+//            System.out.println("CAJA FIN"+caja);
+//            System.out.println("INGRESOS FIN"+ingr);
+//            System.out.println("EGRESOS FIN"+egr);
+//            System.out.println("CAJA INI" +cajaIni);            
+//            txtEsperado.setText(Integer.toString(caja)); 
+//            cajaFin= caja;
+//                                             
     }//GEN-LAST:event_JDcajaCierreWindowActivated
 
     private void jMenuItem12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem12MouseClicked
@@ -1624,17 +1514,11 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu5ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-        // TODO add your handling code here:
-        back.setVisible(true);
-        back.toFront();
-        back.setLocationRelativeTo(null);
+       
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-        // TODO add your handling code here:
-        rest.setVisible(true);
-        rest.toFront();
-        rest.setLocationRelativeTo(null);
+        
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void txtMontoFinalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoFinalKeyReleased
@@ -1652,7 +1536,7 @@ public class JFPrincipal extends javax.swing.JFrame {
         if (txtEsperado.isEnabled() && txtMontoFinal.isEnabled())
         {         
             System.out.println("txtEsperado="+txtEsperado.getText());                   
-            BD.Toast.makeText(JFPrincipal.this, "Debe Realizar cierre de caja!", Toast.Style.ERROR).display();
+            assets.Toast.makeText(JFPrincipal.this, "Debe Realizar cierre de caja!", assets.Toast.Style.ERROR).display();
             JOptionPane.showMessageDialog(this, "Debe Realizar cierre de caja!");
             JDcajaCierre.setLocationRelativeTo(null);
             JDcajaCierre.toFront();
@@ -1668,141 +1552,6 @@ public class JFPrincipal extends javax.swing.JFrame {
         this.JDinicio.setAlwaysOnTop(true);
         
     }//GEN-LAST:event_JDinicioWindowOpened
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        nuser.setVisible(true);
-        nuser.setLocationRelativeTo(this);
-        nuser.toFront();
-    }//GEN-LAST:event_btnAddActionPerformed
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
-
-    private void btnActActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActActionPerformed
-        int filasel=tbUsuario.getSelectedRow();
-        String rut=tbUsuario.getValueAt(filasel, 0).toString();
-        String sql;
-        JPasswordField pwd = new JPasswordField(15);
-        int response=JOptionPane.showConfirmDialog(this,pwd, "Introduzca su clave de administrador" , JOptionPane.OK_CANCEL_OPTION);
-        if(response==JOptionPane.OK_OPTION){
-            String pass=new String(pwd.getPassword());
-            if(compruebaclave(pass)){
-                if(tbUsuario.getValueAt(filasel, 5).equals("SI")){
-                    sql="UPDATE tb_usuario SET activo=1 WHERE rutusuario='"+rut+"'";
-
-                }else {
-                    sql="UPDATE tb_usuario SET activo=0 WHERE rutusuario='"+rut+"'";
-                }
-                con.Update(sql);
-                BD.Toast.makeText(PrincipalU.this, "Priviligio Modificado con exito!", Toast.Style.SUCCESS).display();
-                con.cargatabla(llenauser, 6, user, tbUsuario, con.conectar());
-                traducevalido();
-            }else{
-                BD.Toast.makeText(PrincipalU.this, "Clave Incorracte!", Toast.Style.ERROR).display();
-            }
-        }
-    }//GEN-LAST:event_btnActActionPerformed
-
-    private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
-
-        if(tbUsuario.getSelectedRowCount()==1){
-            int filasel=tbUsuario.getSelectedRow();
-            String rut=tbUsuario.getValueAt(filasel, 0).toString();
-            String nom=tbUsuario.getValueAt(filasel, 1).toString();
-            String horas=tbUsuario.getValueAt(filasel, 6).toString();
-            String horasExtra=tbUsuario.getValueAt(filasel, 7).toString();
-            String descuento=tbUsuario.getValueAt(filasel, 9).toString();
-            String adelanto=tbUsuario.getValueAt(filasel, 8).toString();
-            String valHora=tbUsuario.getValueAt(filasel, 10).toString();
-            String valHoraE=tbUsuario.getValueAt(filasel, 11).toString();
-            if (valHora.equals("0") || valHoraE.equals("0"))
-            {
-                JOptionPane.showMessageDialog(this,"Debe asignar valores a las horas de este trabajador");
-
-                String hora =  JOptionPane.showInputDialog("Ingrese Valor Hora");
-                String horaE = JOptionPane.showInputDialog("Ingrese Valor Hora Extra");
-                System.out.println(hora);
-                System.out.println(horaE);
-
-                String sql = "UPDATE tb_usuario SET valor_hora='"+hora+"',valor_hora_extra='"+horaE+"'WHERE rutusuario='"+rut+"'";
-                con.Update(sql);
-                con.cargatabla(llenauser, 12, user, tbUsuario, con.conectar());
-
-            }else{
-                JFpago.setVisible(true);
-                JFpago.setLocationRelativeTo(this);
-                JFpago.toFront();
-                txtValHora.setEnabled(false);
-                txtValHoraE.setEnabled(false);
-                txtRut.setEnabled(false);
-                txtNombre.setEnabled(false);
-                txtDescuento.setEnabled(false);
-                txtAdelanto.setEnabled(false);
-                txtHora.setEnabled(false);
-                txtHoraExtra.setEnabled(false);
-                txtTotal.setEnabled(false);
-                txtRut.setText(rut);
-                txtNombre.setText(nom);
-                txtHora.setText(horas);
-                txtHoraExtra.setText(horasExtra);
-                txtAdelanto.setText(adelanto);
-                txtDescuento.setText(descuento);
-                txtValHora.setText(valHora);
-                txtValHoraE.setText(valHoraE);
-                int total = ((Integer.parseInt(horas)*Integer.parseInt(valHora)) + (Integer.parseInt(horasExtra)*Integer.parseInt(valHoraE))) - (Integer.parseInt(adelanto) + Integer.parseInt(descuento));
-                this.txtTotal.setText(Integer.toString(total));
-                String sqlPago = "INSERT INTO tb_pago VALUES id_pago,";
-                con.Insert(sqlPago);
-            }
-        }
-
-    }//GEN-LAST:event_btnPagarActionPerformed
-
-    private void btnModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModActionPerformed
-        if(tbUsuario.getSelectedRowCount()==1){
-            JFmodU.setVisible(true);
-            JFmodU.setLocationRelativeTo(this);
-            JFmodU.toFront();
-            int filasel=tbUsuario.getSelectedRow();
-            String rut=tbUsuario.getValueAt(filasel, 0).toString();
-            String nom=tbUsuario.getValueAt(filasel, 1).toString();
-            String fono=tbUsuario.getValueAt(filasel, 2).toString();
-            String mail=tbUsuario.getValueAt(filasel, 3).toString();
-            String cargo=tbUsuario.getValueAt(filasel, 4).toString();
-            txtrut.setText(rut);
-            this.txtnombre.setText(nom);
-            this.txtfono.setText(fono);
-            this.txtemail.setText(mail);
-            this.cbxcargo.setSelectedItem(cargo);
-        }
-    }//GEN-LAST:event_btnModActionPerformed
-
-    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
-        int filasel=tbUsuario.getSelectedRow();
-        String nomu=tbUsuario.getValueAt(filasel, 1).toString();
-        int resp;
-        DefaultTableModel dtm = (DefaultTableModel) tbUsuario.getModel();
-        if (tbUsuario.getSelectedRowCount()==1)
-        {
-            if(!cuentactual.equals(nomu)){
-                resp = JOptionPane.showConfirmDialog(null,"¿Desea Borrar este Usuario?", "Está seguro?",JOptionPane.YES_NO_OPTION);
-                if (resp == JOptionPane.YES_OPTION )
-                {
-                    String dato=String.valueOf(dtm.getValueAt(tbUsuario.getSelectedRow(),0));
-                    con.Del("delete from tb_usuario where rutusuario='"+ dato +"'");
-                    dtm.removeRow(tbUsuario.getSelectedRow());
-                    BD.Toast.makeText(PrincipalU.this, "Usuario Eliminado con exito!", Toast.Style.SUCCESS).display();
-                }
-            }else{
-                BD.Toast.makeText(PrincipalU.this, "NO puede borrar tu propia cuenta!", Toast.Style.ERROR).display();
-            }
-        }else
-        {
-            BD.Toast.makeText(PrincipalU.this, "Debe seleccionar un FILA de la tabla", Toast.Style.NORMAL).display();
-        }
-
-    }//GEN-LAST:event_btnDelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1866,12 +1615,6 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem MIventas;
     private javax.swing.JButton btnAceptarFin;
     private javax.swing.JButton btnAceptarIni;
-    private javax.swing.JButton btnAct;
-    private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnDel;
-    private javax.swing.JButton btnMod;
-    private javax.swing.JButton btnPagar;
-    private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSalirFin;
     private javax.swing.JButton btnSalirIni;
     private javax.swing.JButton jButton1;
@@ -1886,7 +1629,6 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
@@ -1924,12 +1666,10 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JTextField jtxtUser;
     private javax.swing.JPasswordField ptxtpass;
-    private javax.swing.JTable tbUsuario;
     private javax.swing.JTextField txtEsperado;
     private javax.swing.JTextField txtIP;
     private javax.swing.JTextField txtMontoFinal;
