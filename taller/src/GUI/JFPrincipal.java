@@ -1,162 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GUI;
 
-import BD.Toast;
+
 import com.sun.glass.events.KeyEvent;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
 public class JFPrincipal extends javax.swing.JFrame {
-    BD.ParametrosTexto pt = new BD.ParametrosTexto();
-    BD.ConexionBD cc = new BD.ConexionBD();
-    BD.botonesEstilosos btnStyle = new BD.botonesEstilosos();
-   
-    
+ 
     public static String cuentactual;    
     public static String cargo;
     
     public JFPrincipal() {
         initComponents();   
-        ((JPanel)getContentPane()).setOpaque(false);
-        ImageIcon uno=new ImageIcon(this.getClass().getResource("/Img/KonkaGrowMenu.jpg"));
-        JLabel fondo= new JLabel();        
-        fondo.setIcon(uno);
-        getLayeredPane().add(fondo,JLayeredPane.FRAME_CONTENT_LAYER);
-        fondo.setBounds(0,0,uno.getIconWidth(),uno.getIconHeight());    
-        MIbuser1.setVisible(false);
-        pt.seteaDialog(this.JDbd);
-        pt.seteaDialog(this.JDcaja);
-        pt.seteaDialog(this.JDcajaCierre);
-        pt.seteaDialog(this.JDinicio);
-        
+        ((JPanel)getContentPane()).setOpaque(false);       
     }
+ 
        
-    
-       int cajaIni=0;
-       int cajaFin=0;
-           
-        
-        DataBeis.SQLrestaura rest = new DataBeis.SQLrestaura();
-        DataBeis.SQLrespalda back = new DataBeis.SQLrespalda();        
-        BarCode.JFCreaCodigo barritas = new BarCode.JFCreaCodigo();
-        GUI.Productos.JFBuscaprod bprod = new GUI.Productos.JFBuscaprod();
-        GUI.Productos.JFIngresaprod inprod = new GUI.Productos.JFIngresaprod();
-    
-        GUI.Ventas.JFRealVentas rventa = new GUI.Ventas.JFRealVentas();
-        GUI.Ventas.JFBuscaVentas bventas= new GUI.Ventas.JFBuscaVentas();
-        GUI.Ventas.VENTA2 venta = new GUI.Ventas.VENTA2();
-                        
-        GUI.Clientes.PrincipalC pc = new GUI.Clientes.PrincipalC();
-        GUI.Clientes.AddCliente addc = new GUI.Clientes.AddCliente();
-        
-        GUI.Productos.JFIngresapack addpack= new GUI.Productos.JFIngresapack();
-        GUI.Productos.JFBuscapack bpack = new GUI.Productos.JFBuscapack();        
-        GUI.Productos.JFSalida salp = new GUI.Productos.JFSalida();
-        GUI.Productos.JFBuscarSalida bsal = new GUI.Productos.JFBuscarSalida();        
-        GUI.Productos.JFEntrada entp = new GUI.Productos.JFEntrada();
-        GUI.Productos.JFBuscarEntrada bent = new GUI.Productos.JFBuscarEntrada();
-        
-        GUI.Usuarios.PrincipalU pru = new GUI.Usuarios.PrincipalU();
-        GUI.Usuarios.JFnuevoUsuario nuser = new GUI.Usuarios.JFnuevoUsuario();
-        
-        GUI.Proveedores.PrincipalProveedor pp = new GUI.Proveedores.PrincipalProveedor();
-        GUI.Proveedores.AddProveedor addp = new GUI.Proveedores.AddProveedor();
-        
-        GUI.Caja.JFcajaEgreso ce = new GUI.Caja.JFcajaEgreso();
-        GUI.Caja.JFcajaIngreso ci = new GUI.Caja.JFcajaIngreso();
-        
-        GUI.InformeFrames.JFLproductos LisP = new GUI.InformeFrames.JFLproductos();
-        GUI.InformeFrames.JFLsalidas LisS = new GUI.InformeFrames.JFLsalidas();
-        GUI.InformeFrames.JFLusuarios LisU = new GUI.InformeFrames.JFLusuarios();
-        GUI.InformeFrames.JFLclientes LisC = new GUI.InformeFrames.JFLclientes();
-        GUI.InformeFrames.JFLventas LisV = new GUI.InformeFrames.JFLventas();
-        GUI.InformeFrames.JFLproveedor LisPr = new GUI.InformeFrames.JFLproveedor();
-              
-        
-        
-        public void LimitaVentana()
-        {  
-            barritas.dispose();
-            salp.dispose();
-            bsal.dispose();
-            bpack.dispose();
-            pp.dispose();
-            pru.dispose();
-            addpack.dispose();
-            pc.dispose();
-            bventas.dispose();
-            venta.dispose();
-            inprod.dispose();
-            bprod.dispose();
-            addc.dispose();            
-            LisP.dispose();
-            LisS.dispose();
-        }
-        public boolean compruebacuenta(String user,String passW){
-        try{
-            
-            String sql="SELECT nomusuario, cargo FROM tb_usuario WHERE nomusuario='"+user+"' AND password='"+passW+"' AND activo=0";
-            PreparedStatement vepass = cc.conectar().prepareStatement(sql);
-            ResultSet pass = vepass.executeQuery();
-            if(pass.next()){
-                cargo=pass.getString(2);
-                return true;                
-            }
-            
-        }catch(SQLException ex){
-            JOptionPane.showMessageDialog(this, ex.getMessage());
-//            BD.Toast.makeText(MainForm.this, "Usuario y Password no coinciden", Toast.Style.ERROR).display();
-        }
-        return false;
-        }
-        
-        
-        public void activacontrol(){
-            if(cargo.equals("Administrador")){
-                this.MInewuser.setVisible(true);
-                this.MIbuser.setVisible(true);
-                this.MInewprod.setVisible(true);
-                this.MInewpack.setVisible(true);
-                this.MInewentrada.setVisible(true);
-                this.MInewsalida.setVisible(true);
-                this.MInewclient.setVisible(true);
-                this.MInewprov.setVisible(true);
-                this.MIventas.setVisible(true);                
-            }else if(cargo.equals("Bodega")){
-                this.MInewuser.setVisible(false);
-                this.MIbuser.setVisible(false);
-                this.MInewprod.setVisible(true);
-                this.MInewpack.setVisible(true);
-                this.MInewentrada.setVisible(true);
-                this.MInewsalida.setVisible(true);
-                this.MInewclient.setVisible(false);
-                this.MInewprov.setVisible(true);
-                this.MIventas.setVisible(false);
-            }else if(cargo.equals("Otro")){
-                this.MInewuser.setVisible(false);
-                this.MIbuser.setVisible(false);
-                this.MInewprod.setVisible(false);
-                this.MInewpack.setVisible(false);
-                this.MInewentrada.setVisible(false);
-                this.MInewsalida.setVisible(false);
-                this.MInewclient.setVisible(true);
-                this.MInewprov.setVisible(false);
-                this.MIventas.setVisible(true);
-            }
-        }
        
     /**
      * This method is called from within the constructor to initialize the form.
@@ -198,12 +63,22 @@ public class JFPrincipal extends javax.swing.JFrame {
         txtEsperado = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtMontoFinal = new javax.swing.JTextField();
-        btnCodigos = new javax.swing.JButton();
-        btnOff = new javax.swing.JButton();
-        btnUsuario = new javax.swing.JButton();
-        btnProducto = new javax.swing.JButton();
-        btnPack = new javax.swing.JButton();
-        btnVenta = new javax.swing.JButton();
+        JFusuario = new javax.swing.JFrame();
+        btnAdd = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbUsuario = new javax.swing.JTable();
+        btnSalir = new javax.swing.JButton();
+        btnAct = new javax.swing.JButton();
+        btnPagar = new javax.swing.JButton();
+        btnMod = new javax.swing.JButton();
+        btnDel = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        JFcliente = new javax.swing.JFrame();
+        JFproducto = new javax.swing.JFrame();
+        JFproveedor = new javax.swing.JFrame();
+        JFinformes = new javax.swing.JFrame();
+        JFcotiza = new javax.swing.JFrame();
+        JFcaja = new javax.swing.JFrame();
         jMenuBar1 = new javax.swing.JMenuBar();
         JMprod = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -632,6 +507,182 @@ public class JFPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        btnAdd.setText("Nuevo");
+        btnStyle.btnAddU(btnAdd,"Nuevo","Crear nuevo usuario");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
+        pt.seteaTabla(tbUsuario);
+        tbUsuario.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(tbUsuario);
+
+        btnSalir.setText("Salir");
+        btnStyle.btnSalir(btnSalir,"Salir","Ventana Principal");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
+        btnAct.setText("Activar/Desactivar");
+        btnStyle.btnBloquear(btnAct,"Activar","Activar/Desactivar Usuario");
+        btnAct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActActionPerformed(evt);
+            }
+        });
+
+        btnPagar.setText("Pagar");
+        btnPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagarActionPerformed(evt);
+            }
+        });
+
+        btnMod.setText("Modificar");
+        btnStyle.btnModificar(btnMod,"Modificar","Modificar Usuario");
+        btnMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModActionPerformed(evt);
+            }
+        });
+
+        btnDel.setText("Borrar");
+        btnStyle.btnEliminar(btnDel,"Borrar","Borrar Usuario");
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Usuarios");
+        pt.seteaTitulo(jLabel1);
+
+        javax.swing.GroupLayout JFusuarioLayout = new javax.swing.GroupLayout(JFusuario.getContentPane());
+        JFusuario.getContentPane().setLayout(JFusuarioLayout);
+        JFusuarioLayout.setHorizontalGroup(
+            JFusuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JFusuarioLayout.createSequentialGroup()
+                .addGroup(JFusuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JFusuarioLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(JFusuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(JFusuarioLayout.createSequentialGroup()
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnMod, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAct, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addGroup(JFusuarioLayout.createSequentialGroup()
+                        .addGap(159, 159, 159)
+                        .addComponent(jLabel8)))
+                .addGap(12, 12, 12))
+        );
+        JFusuarioLayout.setVerticalGroup(
+            JFusuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JFusuarioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(JFusuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMod, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAct, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPagar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout JFclienteLayout = new javax.swing.GroupLayout(JFcliente.getContentPane());
+        JFcliente.getContentPane().setLayout(JFclienteLayout);
+        JFclienteLayout.setHorizontalGroup(
+            JFclienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        JFclienteLayout.setVerticalGroup(
+            JFclienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout JFproductoLayout = new javax.swing.GroupLayout(JFproducto.getContentPane());
+        JFproducto.getContentPane().setLayout(JFproductoLayout);
+        JFproductoLayout.setHorizontalGroup(
+            JFproductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        JFproductoLayout.setVerticalGroup(
+            JFproductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout JFproveedorLayout = new javax.swing.GroupLayout(JFproveedor.getContentPane());
+        JFproveedor.getContentPane().setLayout(JFproveedorLayout);
+        JFproveedorLayout.setHorizontalGroup(
+            JFproveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        JFproveedorLayout.setVerticalGroup(
+            JFproveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout JFinformesLayout = new javax.swing.GroupLayout(JFinformes.getContentPane());
+        JFinformes.getContentPane().setLayout(JFinformesLayout);
+        JFinformesLayout.setHorizontalGroup(
+            JFinformesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        JFinformesLayout.setVerticalGroup(
+            JFinformesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout JFcotizaLayout = new javax.swing.GroupLayout(JFcotiza.getContentPane());
+        JFcotiza.getContentPane().setLayout(JFcotizaLayout);
+        JFcotizaLayout.setHorizontalGroup(
+            JFcotizaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        JFcotizaLayout.setVerticalGroup(
+            JFcotizaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout JFcajaLayout = new javax.swing.GroupLayout(JFcaja.getContentPane());
+        JFcaja.getContentPane().setLayout(JFcajaLayout);
+        JFcajaLayout.setHorizontalGroup(
+            JFcajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        JFcajaLayout.setVerticalGroup(
+            JFcajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("KonKa GrowShop SW");
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -640,50 +691,6 @@ public class JFPrincipal extends javax.swing.JFrame {
             }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
-            }
-        });
-
-        btnCodigos.setPreferredSize(new java.awt.Dimension(75, 75));
-        btnCodigos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCodigosActionPerformed(evt);
-            }
-        });
-
-        btnOff.setText(" ");
-        btnStyle.btnApagar(btnOff,"CERRAR");
-        btnOff.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOffActionPerformed(evt);
-            }
-        });
-
-        btnStyle.btnUser(btnUsuario,"","Agregar Usuario");
-        btnUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUsuarioActionPerformed(evt);
-            }
-        });
-
-        btnStyle.btnProd(btnProducto,"","Agregar Producto");
-        btnProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProductoActionPerformed(evt);
-            }
-        });
-
-        btnStyle.btnPack(btnPack,"","Agregar Pack");
-        btnPack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPackActionPerformed(evt);
-            }
-        });
-
-        btnStyle.btnVenta(btnVenta,"","Realizar Venta");
-        btnVenta.setPreferredSize(new java.awt.Dimension(75, 75));
-        btnVenta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVentaActionPerformed(evt);
             }
         });
 
@@ -1065,219 +1072,107 @@ public class JFPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(btnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnPack, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(btnProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
-                .addComponent(btnCodigos, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnOff, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(0, 743, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(434, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPack, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnOff, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCodigos, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+            .addGap(0, 537, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void MInewprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MInewprodActionPerformed
-        LimitaVentana();       
-        inprod.setVisible(true);
-        inprod.setLocationRelativeTo(null);
-        inprod.toFront();
+       
     }//GEN-LAST:event_MInewprodActionPerformed
 
     private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
-        LimitaVentana();
-        LisU.setVisible(true);
-        LisU.toFront();
-        LisU.setLocationRelativeTo(null);
+      
     }//GEN-LAST:event_jMenuItem24ActionPerformed
 
     private void MIventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIventasActionPerformed
-        LimitaVentana();
-        venta.setVisible(true);
-        venta.setLocationRelativeTo(null);
-        venta.toFront();
+        
     }//GEN-LAST:event_MIventasActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-        LimitaVentana();
-        bventas.setVisible(true);
-        bventas.setLocationRelativeTo(null);
-        bventas.toFront();
+        
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        LimitaVentana();
-        pc.setVisible(true);
-        pc.setLocationRelativeTo(null);
-        pc.toFront();
+        
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void MInewpackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MInewpackActionPerformed
-        LimitaVentana();
-        addpack.setVisible(true);
-        addpack.setLocationRelativeTo(null);
-        addpack.toFront();
+        
     }//GEN-LAST:event_MInewpackActionPerformed
 
     private void jMenuItem35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem35ActionPerformed
-        LimitaVentana();
-        bpack.setVisible(true);
-        bpack.setLocationRelativeTo(null);
-        bpack.toFront();
+        
     }//GEN-LAST:event_jMenuItem35ActionPerformed
 
     private void MIbuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIbuserActionPerformed
-        // TODO add your handling code here:
-        LimitaVentana();
-        pru.setVisible(true);
-        pru.setLocationRelativeTo(null);
-        pru.toFront();
         
     }//GEN-LAST:event_MIbuserActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        // TODO add your handling code here:
-        LimitaVentana();
-        pp.setVisible(true);
-        pp.setLocationRelativeTo(null);
-        pp.toFront();
         
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        LimitaVentana();
-        bprod.setVisible(true);
-        bprod.setLocationRelativeTo(null);
-        bprod.toFront();
         
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);  
         jMenu9.setVisible(false);
-        jMenuItem2.setVisible(false);
-        btnCodigos.setVisible(false);
+        jMenuItem2.setVisible(false);        
         jButton3.setVisible(false);
         JDinicio.setVisible(true);   
-        JDinicio.setLocationRelativeTo(null);
-      
+        JDinicio.setLocationRelativeTo(null);      
     }//GEN-LAST:event_formWindowOpened
 
     private void MInewsalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MInewsalidaActionPerformed
-        LimitaVentana();
-        salp.setVisible(true);
-        salp.setLocationRelativeTo(null);
-        salp.toFront();
+        
     }//GEN-LAST:event_MInewsalidaActionPerformed
 
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
-        LimitaVentana();
-        LisP.setVisible(true);
-        LisP.setLocationRelativeTo(null);
-        LisP.toFront();
+        
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
     private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
-        LimitaVentana();
-        LisS.setVisible(true);        
-        LisS.setLocationRelativeTo(null);
-       LisS.toFront();
+        
     }//GEN-LAST:event_jMenuItem20ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        LimitaVentana();
-        bsal.setVisible(true);        
-        bsal.setLocationRelativeTo(null);
-        bsal.toFront();
+        
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem23ActionPerformed
-        LimitaVentana();
-        LisC.setVisible(true);
-        LisC.setLocationRelativeTo(null);
-        LisC.toFront();
+        
     }//GEN-LAST:event_jMenuItem23ActionPerformed
 
     private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
-        LimitaVentana();
-        LisV.setVisible(true);
-        LisV.setLocationRelativeTo(null);
-        LisV.toFront();
+        
     }//GEN-LAST:event_jMenuItem27ActionPerformed
 
     private void jMenuItem25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem25ActionPerformed
-        LimitaVentana();
-       LisPr.setVisible(true);
-        LisPr.setLocationRelativeTo(null);
-        LisPr.toFront();
+        
     }//GEN-LAST:event_jMenuItem25ActionPerformed
 
     private void MInewentradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MInewentradaActionPerformed
-        LimitaVentana();
-        this.entp.setVisible(true);
-        entp.setLocationRelativeTo(null);
-        entp.toFront();
+        
     }//GEN-LAST:event_MInewentradaActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        LimitaVentana();
-        bent.setVisible(true);
-        bent.setLocationRelativeTo(null);
-        bent.toFront();
+        
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void MInewuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MInewuserActionPerformed
-        LimitaVentana();
-        nuser.setVisible(true);
-        nuser.setLocationRelativeTo(this);
-        nuser.toFront();
+        
     }//GEN-LAST:event_MInewuserActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println("aprete el boton");
-        if(jtxtUser.getText().equals("")&&ptxtpass.getText().length()==0)
-        {
-            BD.Toast.makeText(JFPrincipal.this, "Debe llenar los campos de Texto!", Toast.Style.NORMAL).display();
-        }
-        if(!jtxtUser.getText().equals("")&&ptxtpass.getText().length()>0){
-            String pass = new String(ptxtpass.getPassword());
-            String user = jtxtUser.getText().trim();
-            System.out.println("dentro del primer if pass y user = " +pass+"/"+user);
-            if(compruebacuenta(user,pass)){
-                System.out.println("comprueba user true");
-                jtxtUser.setText("");
-                ptxtpass.setText("");
-                JDinicio.dispose();
-                cuentactual=user;
-                this.activacontrol();
-                JDcaja.setVisible(true);
-                JDcaja.setLocationRelativeTo(null);
-            }else{
-                System.out.println("comprueba user false");
-                ptxtpass.setText("");
-//                JOptionPane.showMessageDialog(this, "Datos Incorrectos");
-                BD.Toast.makeText(JFPrincipal.this, "Datos Incorrectos!", Toast.Style.ERROR).display();
-            }
-        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1291,17 +1186,10 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void MInewclientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MInewclientActionPerformed
-        LimitaVentana();
-        addc.setLocationRelativeTo(null);
-        addc.setVisible(true);
-        addc.toFront();
+        
     }//GEN-LAST:event_MInewclientActionPerformed
 
     private void MInewprovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MInewprovActionPerformed
-        LimitaVentana();
-        addp.setVisible(true);
-        addp.setLocationRelativeTo(null);
-        addp.toFront();
         
     }//GEN-LAST:event_MInewprovActionPerformed
 
@@ -1323,10 +1211,7 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIPActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        BD.ConexionBD.servidorbd=txtIP.getText();
-        BD.ConexionBD.userbd=txtuserbd.getText();
-        JDbd.dispose();
-        JDinicio.setVisible(true);
+       
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -1359,59 +1244,14 @@ public class JFPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_MIbuser1ActionPerformed
 
-    private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
-        // TODO add your handling code here:
-        LimitaVentana();
-        addc.setVisible(true);
-        addc.setLocationRelativeTo(null);
-        addc.toFront();
-        
-        
-        
-    }//GEN-LAST:event_btnUsuarioActionPerformed
-
-    private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
-        // TODO add your handling code here:
-        LimitaVentana();
-        venta.setVisible(true);
-        venta.setLocationRelativeTo(null);
-        venta.toFront();
-    }//GEN-LAST:event_btnVentaActionPerformed
-
-    private void btnProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductoActionPerformed
-        // TODO add your handling code here:
-        LimitaVentana();
-        inprod.setVisible(true);
-        inprod.setLocationRelativeTo(null);
-        inprod.toFront();
-    }//GEN-LAST:event_btnProductoActionPerformed
-
-    private void btnPackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPackActionPerformed
-        LimitaVentana();
-        addpack.setVisible(true);
-        addpack.setLocationRelativeTo(null);
-        addpack.toFront();
-    }//GEN-LAST:event_btnPackActionPerformed
-
     private void JMprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMprodActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_JMprodActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        LimitaVentana();
-        barritas.setVisible(true);
-        barritas.setLocationRelativeTo(null);
-        barritas.toFront();
+      
     }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void btnCodigosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCodigosActionPerformed
-        // TODO add your handling code here:
-        LimitaVentana();
-        barritas.setVisible(true);
-        barritas.setLocationRelativeTo(null);
-        barritas.toFront();        
-    }//GEN-LAST:event_btnCodigosActionPerformed
 
     private void JDcajaCierreWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_JDcajaCierreWindowOpened
         // TODO add your handling code here:
@@ -1829,22 +1669,140 @@ public class JFPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_JDinicioWindowOpened
 
-    private void btnOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOffActionPerformed
-        // TODO add your handling code here:
-        if (txtEsperado.isEnabled() && txtMontoFinal.isEnabled())
-        {         
-            System.out.println("txtEsperado="+txtEsperado.getText());
-                   
-            BD.Toast.makeText(JFPrincipal.this, "Debe Realizar cierre de caja!", Toast.Style.ERROR).display();
-            JOptionPane.showMessageDialog(this, "Debe Realizar cierre de caja!");
-            JDcajaCierre.setLocationRelativeTo(null);
-            JDcajaCierre.toFront();
-            JDcajaCierre.setVisible(true);      
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        nuser.setVisible(true);
+        nuser.setLocationRelativeTo(this);
+        nuser.toFront();
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnActActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActActionPerformed
+        int filasel=tbUsuario.getSelectedRow();
+        String rut=tbUsuario.getValueAt(filasel, 0).toString();
+        String sql;
+        JPasswordField pwd = new JPasswordField(15);
+        int response=JOptionPane.showConfirmDialog(this,pwd, "Introduzca su clave de administrador" , JOptionPane.OK_CANCEL_OPTION);
+        if(response==JOptionPane.OK_OPTION){
+            String pass=new String(pwd.getPassword());
+            if(compruebaclave(pass)){
+                if(tbUsuario.getValueAt(filasel, 5).equals("SI")){
+                    sql="UPDATE tb_usuario SET activo=1 WHERE rutusuario='"+rut+"'";
+
+                }else {
+                    sql="UPDATE tb_usuario SET activo=0 WHERE rutusuario='"+rut+"'";
+                }
+                con.Update(sql);
+                BD.Toast.makeText(PrincipalU.this, "Priviligio Modificado con exito!", Toast.Style.SUCCESS).display();
+                con.cargatabla(llenauser, 6, user, tbUsuario, con.conectar());
+                traducevalido();
+            }else{
+                BD.Toast.makeText(PrincipalU.this, "Clave Incorracte!", Toast.Style.ERROR).display();
+            }
+        }
+    }//GEN-LAST:event_btnActActionPerformed
+
+    private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
+
+        if(tbUsuario.getSelectedRowCount()==1){
+            int filasel=tbUsuario.getSelectedRow();
+            String rut=tbUsuario.getValueAt(filasel, 0).toString();
+            String nom=tbUsuario.getValueAt(filasel, 1).toString();
+            String horas=tbUsuario.getValueAt(filasel, 6).toString();
+            String horasExtra=tbUsuario.getValueAt(filasel, 7).toString();
+            String descuento=tbUsuario.getValueAt(filasel, 9).toString();
+            String adelanto=tbUsuario.getValueAt(filasel, 8).toString();
+            String valHora=tbUsuario.getValueAt(filasel, 10).toString();
+            String valHoraE=tbUsuario.getValueAt(filasel, 11).toString();
+            if (valHora.equals("0") || valHoraE.equals("0"))
+            {
+                JOptionPane.showMessageDialog(this,"Debe asignar valores a las horas de este trabajador");
+
+                String hora =  JOptionPane.showInputDialog("Ingrese Valor Hora");
+                String horaE = JOptionPane.showInputDialog("Ingrese Valor Hora Extra");
+                System.out.println(hora);
+                System.out.println(horaE);
+
+                String sql = "UPDATE tb_usuario SET valor_hora='"+hora+"',valor_hora_extra='"+horaE+"'WHERE rutusuario='"+rut+"'";
+                con.Update(sql);
+                con.cargatabla(llenauser, 12, user, tbUsuario, con.conectar());
+
+            }else{
+                JFpago.setVisible(true);
+                JFpago.setLocationRelativeTo(this);
+                JFpago.toFront();
+                txtValHora.setEnabled(false);
+                txtValHoraE.setEnabled(false);
+                txtRut.setEnabled(false);
+                txtNombre.setEnabled(false);
+                txtDescuento.setEnabled(false);
+                txtAdelanto.setEnabled(false);
+                txtHora.setEnabled(false);
+                txtHoraExtra.setEnabled(false);
+                txtTotal.setEnabled(false);
+                txtRut.setText(rut);
+                txtNombre.setText(nom);
+                txtHora.setText(horas);
+                txtHoraExtra.setText(horasExtra);
+                txtAdelanto.setText(adelanto);
+                txtDescuento.setText(descuento);
+                txtValHora.setText(valHora);
+                txtValHoraE.setText(valHoraE);
+                int total = ((Integer.parseInt(horas)*Integer.parseInt(valHora)) + (Integer.parseInt(horasExtra)*Integer.parseInt(valHoraE))) - (Integer.parseInt(adelanto) + Integer.parseInt(descuento));
+                this.txtTotal.setText(Integer.toString(total));
+                String sqlPago = "INSERT INTO tb_pago VALUES id_pago,";
+                con.Insert(sqlPago);
+            }
+        }
+
+    }//GEN-LAST:event_btnPagarActionPerformed
+
+    private void btnModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModActionPerformed
+        if(tbUsuario.getSelectedRowCount()==1){
+            JFmodU.setVisible(true);
+            JFmodU.setLocationRelativeTo(this);
+            JFmodU.toFront();
+            int filasel=tbUsuario.getSelectedRow();
+            String rut=tbUsuario.getValueAt(filasel, 0).toString();
+            String nom=tbUsuario.getValueAt(filasel, 1).toString();
+            String fono=tbUsuario.getValueAt(filasel, 2).toString();
+            String mail=tbUsuario.getValueAt(filasel, 3).toString();
+            String cargo=tbUsuario.getValueAt(filasel, 4).toString();
+            txtrut.setText(rut);
+            this.txtnombre.setText(nom);
+            this.txtfono.setText(fono);
+            this.txtemail.setText(mail);
+            this.cbxcargo.setSelectedItem(cargo);
+        }
+    }//GEN-LAST:event_btnModActionPerformed
+
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        int filasel=tbUsuario.getSelectedRow();
+        String nomu=tbUsuario.getValueAt(filasel, 1).toString();
+        int resp;
+        DefaultTableModel dtm = (DefaultTableModel) tbUsuario.getModel();
+        if (tbUsuario.getSelectedRowCount()==1)
+        {
+            if(!cuentactual.equals(nomu)){
+                resp = JOptionPane.showConfirmDialog(null,"¿Desea Borrar este Usuario?", "Está seguro?",JOptionPane.YES_NO_OPTION);
+                if (resp == JOptionPane.YES_OPTION )
+                {
+                    String dato=String.valueOf(dtm.getValueAt(tbUsuario.getSelectedRow(),0));
+                    con.Del("delete from tb_usuario where rutusuario='"+ dato +"'");
+                    dtm.removeRow(tbUsuario.getSelectedRow());
+                    BD.Toast.makeText(PrincipalU.this, "Usuario Eliminado con exito!", Toast.Style.SUCCESS).display();
+                }
+            }else{
+                BD.Toast.makeText(PrincipalU.this, "NO puede borrar tu propia cuenta!", Toast.Style.ERROR).display();
+            }
         }else
         {
-            System.exit(0);
+            BD.Toast.makeText(PrincipalU.this, "Debe seleccionar un FILA de la tabla", Toast.Style.NORMAL).display();
         }
-    }//GEN-LAST:event_btnOffActionPerformed
+
+    }//GEN-LAST:event_btnDelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1887,6 +1845,13 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JDialog JDcaja;
     private javax.swing.JDialog JDcajaCierre;
     private javax.swing.JDialog JDinicio;
+    private javax.swing.JFrame JFcaja;
+    private javax.swing.JFrame JFcliente;
+    private javax.swing.JFrame JFcotiza;
+    private javax.swing.JFrame JFinformes;
+    private javax.swing.JFrame JFproducto;
+    private javax.swing.JFrame JFproveedor;
+    private javax.swing.JFrame JFusuario;
     private javax.swing.JMenu JMprod;
     private javax.swing.JMenu JMusuario;
     private javax.swing.JMenuItem MIbuser;
@@ -1901,14 +1866,14 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem MIventas;
     private javax.swing.JButton btnAceptarFin;
     private javax.swing.JButton btnAceptarIni;
-    private javax.swing.JButton btnCodigos;
-    private javax.swing.JButton btnOff;
-    private javax.swing.JButton btnPack;
-    private javax.swing.JButton btnProducto;
+    private javax.swing.JButton btnAct;
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnDel;
+    private javax.swing.JButton btnMod;
+    private javax.swing.JButton btnPagar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSalirFin;
     private javax.swing.JButton btnSalirIni;
-    private javax.swing.JButton btnUsuario;
-    private javax.swing.JButton btnVenta;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -1921,6 +1886,7 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
@@ -1958,10 +1924,12 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JTextField jtxtUser;
     private javax.swing.JPasswordField ptxtpass;
+    private javax.swing.JTable tbUsuario;
     private javax.swing.JTextField txtEsperado;
     private javax.swing.JTextField txtIP;
     private javax.swing.JTextField txtMontoFinal;
