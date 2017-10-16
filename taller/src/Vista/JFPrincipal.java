@@ -2264,6 +2264,7 @@ public class JFPrincipal extends javax.swing.JFrame {
 
     private void txtIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIPActionPerformed
         // TODO add your handling code here:
+        //caca
     }//GEN-LAST:event_txtIPActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
